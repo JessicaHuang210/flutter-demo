@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
-import 'src/Tabs.dart';
+import 'src/widgets/ButtomTabs.dart';
+import 'src/widgets/DrawerItems.dart';
+
+import 'src/pages/PageWrap.dart';
 
 class Screen extends StatelessWidget {
   Screen({this.current});
   final int current;
   static const List<Widget> _widgetOptions = <Widget>[
+    Align(
+        alignment: Alignment.bottomLeft,
+        child: Text(
+          'Index 0: Home',
+        )),
     Center(
         child: Text(
-      'Index 0: Home',
+      'Index 2: List',
     )),
     Center(
         child: Text(
-      'Index 1: List',
-    )),
-    Center(
-        child: Text(
-      'Index 2: Message',
+      'Index 3: Message',
     )),
   ];
   @override
@@ -25,6 +29,9 @@ class Screen extends StatelessWidget {
 }
 
 class GlobalLayout extends StatefulWidget {
+  GlobalLayout({this.title});
+  final String title;
+
   @override
   GlobalLayoutState createState() => GlobalLayoutState();
 }
@@ -42,11 +49,12 @@ class GlobalLayoutState extends State<GlobalLayout> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flutter layout title'),
+        title: Text(widget.title),
       ),
+      drawer: DrawerItems(),
       body: Screen(current: current),
       backgroundColor: Colors.grey.shade300,
-      bottomNavigationBar: Tabs(
+      bottomNavigationBar: ButtomTabs(
         current: current,
         onChangeTab: onChangeTab,
       ),
@@ -63,7 +71,16 @@ class App extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'flutter_demo',
-      home: GlobalLayout(),
+      home: GlobalLayout(title: 'flutter_router_demo'),
+      theme: ThemeData(
+        primaryColor: Colors.red,
+        primaryColorDark: Colors.red,
+        accentColor: Colors.red,
+      ),
+      routes: <String, WidgetBuilder>{
+        '/account': (BuildContext context) => PageWrap(title: 'Account'),
+        '/setting': (BuildContext context) => PageWrap(title: 'Setting'),
+      },
     );
   }
 }
