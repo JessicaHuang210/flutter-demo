@@ -61,7 +61,7 @@ class _ListState extends State<ListWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('List'),
+        title: Text('TodoList'),
       ),
       body: Column(
         children: <Widget>[
@@ -75,7 +75,14 @@ class _ListState extends State<ListWidget> {
                         onChanged: (val) {
                           onChange(val, index);
                         }),
-                    title: Text('${listArr[index - 1]['name']}'),
+                    title: Text('${listArr[index - 1]['name']}',
+                        style: TextStyle(
+                            color: listArr[index - 1]['value']
+                                ? Colors.grey.shade400
+                                : Theme.of(context).textTheme.bodyText1.color,
+                            decoration: listArr[index - 1]['value']
+                                ? TextDecoration.lineThrough
+                                : null)),
                     trailing: PopupMenuButton<extraAction>(
                       onSelected: (val) {
                         editList(
@@ -137,7 +144,7 @@ class _FullScreenDialogState extends State<FullScreenDialog> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('add a list'),
+        title: Text('add a todo'),
         actions: <Widget>[
           FlatButton(
               onPressed: () {
@@ -161,7 +168,7 @@ class _FullScreenDialogState extends State<FullScreenDialog> {
   }
 }
 
-class PageList extends StatelessWidget {
+class TodoList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListWidget();
