@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class DrawerItems extends StatelessWidget {
   final List<Map<String, dynamic>> menus = [
+    {'name': 'List', 'path': 'list', 'icon': 57453},
     {'name': 'Account', 'path': 'account', 'icon': 59705},
     {'name': 'Setting', 'path': 'setting', 'icon': 59576},
   ];
@@ -15,7 +16,7 @@ class DrawerItems extends StatelessWidget {
           if (i == 0) {
             return DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.red,
+                color: Theme.of(context).primaryColor,
               ),
               child: Text(
                 'Drawer Header',

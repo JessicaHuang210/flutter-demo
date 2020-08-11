@@ -3,6 +3,7 @@ import 'src/widgets/ButtomTabs.dart';
 import 'src/widgets/DrawerItems.dart';
 
 import 'src/pages/PageWrap.dart';
+import 'src/pages/PageList.dart';
 
 class Screen extends StatelessWidget {
   Screen({this.current});
@@ -53,7 +54,6 @@ class GlobalLayoutState extends State<GlobalLayout> {
       ),
       drawer: DrawerItems(),
       body: Screen(current: current),
-      backgroundColor: Colors.grey.shade300,
       bottomNavigationBar: ButtomTabs(
         current: current,
         onChangeTab: onChangeTab,
@@ -73,11 +73,21 @@ class App extends StatelessWidget {
       title: 'flutter_demo',
       home: GlobalLayout(title: 'flutter_router_demo'),
       theme: ThemeData(
-        primaryColor: Colors.red,
-        primaryColorDark: Colors.red,
-        accentColor: Colors.red,
+        primaryColor: Colors.orange,
+        primaryColorDark: Colors.orange,
+        accentColor: Colors.orange,
+        appBarTheme: AppBarTheme(
+          iconTheme: IconThemeData(color: Colors.white),
+          actionsIconTheme: IconThemeData(color: Colors.white),
+          textTheme: TextTheme(
+            headline6: TextStyle(fontSize: 20, color: Colors.white),
+          ),
+        ),
+        floatingActionButtonTheme:
+            FloatingActionButtonThemeData(foregroundColor: Colors.white),
       ),
       routes: <String, WidgetBuilder>{
+        '/list': (BuildContext context) => PageList(),
         '/account': (BuildContext context) => PageWrap(title: 'Account'),
         '/setting': (BuildContext context) => PageWrap(title: 'Setting'),
       },

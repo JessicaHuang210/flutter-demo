@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class PageWrap extends StatelessWidget {
-  PageWrap({this.title});
+  PageWrap({this.title, this.body});
   final String title;
+  final Widget body;
 
   @override
   Widget build(BuildContext context) {
@@ -10,9 +11,7 @@ class PageWrap extends StatelessWidget {
       appBar: AppBar(
         title: Text(title),
       ),
-      body: Center(
-        child: Text(title),
-      ),
+      body: body,
     );
   }
 }
