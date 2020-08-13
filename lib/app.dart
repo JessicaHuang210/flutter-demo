@@ -4,7 +4,6 @@ import 'widgets/DrawerItems.dart';
 
 import 'pages/PageWrap.dart';
 import 'pages/TodoList.dart';
-import 'pages/Storage.dart';
 
 class Screen extends StatelessWidget {
   Screen({this.current});
@@ -88,7 +87,6 @@ class App extends StatelessWidget {
       ),
       routes: <String, WidgetBuilder>{
         '/list': (BuildContext context) => TodoList(),
-        '/storage': (BuildContext context) => StorageWidget(),
         '/setting': (BuildContext context) => PageWrap(title: 'Setting'),
       },
     );

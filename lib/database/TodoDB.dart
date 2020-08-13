@@ -45,7 +45,6 @@ class TodoDB {
   static Future<List<Todo>> getTodos() async {
     final Database db = await getDBConnect();
     final List<Map<String, dynamic>> maps = await db.query('todos');
-
     return List.generate(maps.length, (i) {
       return Todo(
         id: maps[i]['id'],
@@ -84,5 +83,11 @@ class TodoDB {
       where: "id = ?",
       whereArgs: [id],
     );
+  }
+
+  // close db
+  static Future<void> closeDB() async {
+    final Database db = await getDBConnect();
+    await db.close();
   }
 }

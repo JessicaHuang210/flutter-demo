@@ -78,6 +78,10 @@ class _ListState extends State<ListWidget> {
     getTodoList();
   }
 
+  void dispose() {
+    super.dispose();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
