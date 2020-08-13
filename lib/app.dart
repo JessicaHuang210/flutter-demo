@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'src/widgets/ButtomTabs.dart';
-import 'src/widgets/DrawerItems.dart';
+import 'widgets/ButtomTabs.dart';
+import 'widgets/DrawerItems.dart';
 
-import 'src/pages/PageWrap.dart';
-import 'src/pages/TodoList.dart';
+import 'pages/PageWrap.dart';
+import 'pages/TodoList.dart';
+import 'pages/Storage.dart';
 
 class Screen extends StatelessWidget {
   Screen({this.current});
   final int current;
   static const List<Widget> _widgetOptions = <Widget>[
-    Align(
-        alignment: Alignment.bottomLeft,
+    Center(
         child: Text(
-          'Index 0: Home',
-        )),
+      'Index 0: Home',
+    )),
     Center(
         child: Text(
       'Index 2: List',
@@ -88,7 +88,7 @@ class App extends StatelessWidget {
       ),
       routes: <String, WidgetBuilder>{
         '/list': (BuildContext context) => TodoList(),
-        '/account': (BuildContext context) => PageWrap(title: 'Account'),
+        '/storage': (BuildContext context) => StorageWidget(),
         '/setting': (BuildContext context) => PageWrap(title: 'Setting'),
       },
     );

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class DrawerItems extends StatelessWidget {
   final List<Map<String, dynamic>> menus = [
     {'name': 'TodoList', 'path': 'list', 'icon': 57453},
-    {'name': 'Account', 'path': 'account', 'icon': 59705},
+    {'name': 'Storage', 'path': 'storage', 'icon': 58683},
     {'name': 'Setting', 'path': 'setting', 'icon': 59576},
   ];
   @override

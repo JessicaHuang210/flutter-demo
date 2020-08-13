@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../database/TodoDB.dart';
 
 enum extraAction { edit, delete }
 
@@ -8,56 +9,75 @@ class ListWidget extends StatefulWidget {
 }
 
 class _ListState extends State<ListWidget> {
-  List<Map<String, dynamic>> listArr = [
-    {'name': 'check list item 01', 'value': true},
-    {'name': 'check list item 02', 'value': true},
-    {'name': 'check list item 03', 'value': false},
-    {'name': 'check list item 04', 'value': false},
-    {'name': 'check list item 05', 'value': true},
-    {'name': 'check list item 06', 'value': false},
-  ];
+  List<Todo> listArr = [];
 
-  void onChange(val, index) {
+  // 查所有list
+  void getTodoList() async {
+    final list = await TodoDB.getTodos();
     setState(() {
-      listArr[index - 1]['value'] = val;
+      listArr = list;
     });
   }
 
-  void addList() {
-    setState(() {
-      listArr.addAll([
-        {'name': 'new check list item', 'value': false}
-      ]);
-    });
+  // 打勾
+  void onChangeCheckbox(val, todo) async {
+    final updateTodo =
+        Todo(id: todo.id, name: todo.name, isCompleted: val ? 1 : 0);
+    await TodoDB.updateTodo(updateTodo);
+    getTodoList();
   }
 
-  void editList(val, index, context, name) {
-    bool isEdit = val.index == 0;
-    if (isEdit) {
-      Navigator.push<void>(
-          context,
-          MaterialPageRoute(
-              builder: (context) => FullScreenDialog(
-                    save: saveNewItem,
-                    index: index,
-                    name: name,
-                  ),
-              fullscreenDialog: true));
-    } else {
-      setState(() {
-        listArr.removeAt(index - 1);
-      });
+  // 新增
+  void addTodo() async {
+    final newTodo = Todo(
+      id: new DateTime.now().millisecondsSinceEpoch.toString(),
+      name: 'new Todo',
+      isCompleted: 0,
+    );
+    await TodoDB.addTodo(newTodo);
+    getTodoList();
+  }
+
+  // 選擇編輯 or 刪除
+  void editList(type, context, todo) {
+    switch (type) {
+      case extraAction.edit:
+        Navigator.push<void>(
+            context,
+            MaterialPageRoute(
+                builder: (context) => FullScreenDialog(
+                    onSave: editTodo, todo: todo, onDelete: deleteTodo),
+                fullscreenDialog: true));
+        break;
+      case extraAction.delete:
+        deleteTodo(todo);
+        break;
+      default:
+        print('error!!');
     }
   }
 
-  void saveNewItem(val, index) {
-    setState(() {
-      listArr[index - 1]['name'] = val;
-    });
+  // 編輯
+  void editTodo(name, todo) async {
+    final updateTodo =
+        Todo(id: todo.id, name: name, isCompleted: todo.isCompleted);
+    await TodoDB.updateTodo(updateTodo);
+    getTodoList();
     Navigator.pop(context);
   }
 
+  // 刪除
+  void deleteTodo(todo) async {
+    await TodoDB.deleteTodo(todo.id);
+    getTodoList();
+  }
+
   @override
+  void initState() {
+    super.initState();
+    getTodoList();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -71,22 +91,21 @@ class _ListState extends State<ListWidget> {
                 for (int index = 1; index <= listArr.length; index++)
                   ListTile(
                     leading: Checkbox(
-                        value: listArr[index - 1]['value'],
+                        value: listArr[index - 1].isCompleted == 1,
                         onChanged: (val) {
-                          onChange(val, index);
+                          onChangeCheckbox(val, listArr[index - 1]);
                         }),
-                    title: Text('${listArr[index - 1]['name']}',
+                    title: Text('${listArr[index - 1].name}',
                         style: TextStyle(
-                            color: listArr[index - 1]['value']
+                            color: listArr[index - 1].isCompleted == 1
                                 ? Colors.grey.shade400
                                 : Theme.of(context).textTheme.bodyText1.color,
-                            decoration: listArr[index - 1]['value']
+                            decoration: listArr[index - 1].isCompleted == 1
                                 ? TextDecoration.lineThrough
                                 : null)),
                     trailing: PopupMenuButton<extraAction>(
-                      onSelected: (val) {
-                        editList(
-                            val, index, context, listArr[index - 1]['name']);
+                      onSelected: (type) {
+                        editList(type, context, listArr[index - 1]);
                       },
                       itemBuilder: (BuildContext context) =>
                           <PopupMenuItem<extraAction>>[
@@ -106,23 +125,23 @@ class _ListState extends State<ListWidget> {
           ),
           MaterialBanner(
             content: Text(
-                '共 ${listArr.length} 個清單，已完成 ${listArr.where((obj) => obj['value']).length} 個'),
+                '共 ${listArr.length} 個清單，已完成 ${listArr.where((obj) => obj.isCompleted == 1).length} 個'),
             actions: <Widget>[null],
           ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
-          onPressed: addList, child: const Icon(Icons.add)),
+          onPressed: addTodo, child: const Icon(Icons.add)),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }
 
 class FullScreenDialog extends StatefulWidget {
-  FullScreenDialog({this.save, this.name, this.index});
-  final Function save;
-  final int index;
-  final String name;
+  FullScreenDialog({this.onSave, this.todo, this.onDelete});
+  final Function onSave;
+  final Todo todo;
+  final Function onDelete;
   @override
   _FullScreenDialogState createState() => _FullScreenDialogState();
 }
@@ -133,7 +152,7 @@ class _FullScreenDialogState extends State<FullScreenDialog> {
   @override
   void initState() {
     super.initState();
-    itemController.text = widget.name;
+    itemController.text = widget.todo.name;
   }
 
   void dispose() {
@@ -148,7 +167,7 @@ class _FullScreenDialogState extends State<FullScreenDialog> {
         actions: <Widget>[
           FlatButton(
               onPressed: () {
-                widget.save(itemController.text, widget.index);
+                widget.onSave(itemController.text, widget.todo);
               },
               child: Text('儲存'))
         ],
