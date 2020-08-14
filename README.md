@@ -1,16 +1,12 @@
 # flutter_demo
 
-A new Flutter project.
+用來練習 flutter 各種功能的範例 app。
 
-## Getting Started
+## Drawer
 
-This project is a starting point for a Flutter application.
+### TodoList
 
-A few resources to get you started if this is your first Flutter project:
+功能：就是你想的 todolist，新增、編輯、打勾、刪除
+使用：sqlite
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## BottomTabs

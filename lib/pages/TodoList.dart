@@ -87,52 +87,48 @@ class _ListState extends State<ListWidget> {
       appBar: AppBar(
         title: Text('TodoList'),
       ),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            child: ListView(
-              children: [
-                for (int index = 1; index <= listArr.length; index++)
-                  ListTile(
-                    leading: Checkbox(
-                        value: listArr[index - 1].isCompleted == 1,
-                        onChanged: (val) {
-                          onChangeCheckbox(val, listArr[index - 1]);
-                        }),
-                    title: Text('${listArr[index - 1].name}',
-                        style: TextStyle(
-                            color: listArr[index - 1].isCompleted == 1
-                                ? Colors.grey.shade400
-                                : Theme.of(context).textTheme.bodyText1.color,
-                            decoration: listArr[index - 1].isCompleted == 1
-                                ? TextDecoration.lineThrough
-                                : null)),
-                    trailing: PopupMenuButton<extraAction>(
-                      onSelected: (type) {
-                        editList(type, context, listArr[index - 1]);
-                      },
-                      itemBuilder: (BuildContext context) =>
-                          <PopupMenuItem<extraAction>>[
-                        PopupMenuItem<extraAction>(
-                          value: extraAction.edit,
-                          child: Text('Edit'),
-                        ),
-                        PopupMenuItem<extraAction>(
-                          value: extraAction.delete,
-                          child: Text('Delete'),
-                        ),
-                      ],
-                    ),
-                  )
-              ],
-            ),
-          ),
-          MaterialBanner(
-            content: Text(
-                '共 ${listArr.length} 個清單，已完成 ${listArr.where((obj) => obj.isCompleted == 1).length} 個'),
-            actions: <Widget>[null],
-          ),
+      body: ListView(
+        children: [
+          for (int index = 1; index <= listArr.length; index++)
+            ListTile(
+              leading: Checkbox(
+                  value: listArr[index - 1].isCompleted == 1,
+                  onChanged: (val) {
+                    onChangeCheckbox(val, listArr[index - 1]);
+                  }),
+              title: Text('${listArr[index - 1].name}',
+                  style: TextStyle(
+                      color: listArr[index - 1].isCompleted == 1
+                          ? Colors.grey.shade400
+                          : Theme.of(context).textTheme.bodyText1.color,
+                      decoration: listArr[index - 1].isCompleted == 1
+                          ? TextDecoration.lineThrough
+                          : null)),
+              trailing: PopupMenuButton<extraAction>(
+                onSelected: (type) {
+                  editList(type, context, listArr[index - 1]);
+                },
+                itemBuilder: (BuildContext context) =>
+                    <PopupMenuItem<extraAction>>[
+                  PopupMenuItem<extraAction>(
+                    value: extraAction.edit,
+                    child: Text('Edit'),
+                  ),
+                  PopupMenuItem<extraAction>(
+                    value: extraAction.delete,
+                    child: Text('Delete'),
+                  ),
+                ],
+              ),
+            )
         ],
+      ),
+      bottomNavigationBar: Container(
+        child: SafeArea(
+          child: Text(
+              '共 ${listArr.length} 個清單，已完成 ${listArr.where((obj) => obj.isCompleted == 1).length} 個'),
+        ),
+        padding: EdgeInsets.symmetric(horizontal: 30),
       ),
       floatingActionButton: FloatingActionButton(
           onPressed: addTodo, child: const Icon(Icons.add)),

@@ -1,18 +1,20 @@
+//packages
 import 'package:flutter/material.dart';
+
+//widgets
 import 'widgets/ButtomTabs.dart';
 import 'widgets/DrawerItems.dart';
 
+//pages
+import 'pages/Home.dart';
 import 'pages/PageWrap.dart';
 import 'pages/TodoList.dart';
 
 class Screen extends StatelessWidget {
   Screen({this.current});
   final int current;
-  static const List<Widget> _widgetOptions = <Widget>[
-    Center(
-        child: Text(
-      'Index 0: Home',
-    )),
+  static List<Widget> _widgetOptions = <Widget>[
+    Home(),
     Center(
         child: Text(
       'Index 2: List',
