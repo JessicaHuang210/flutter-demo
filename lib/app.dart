@@ -6,19 +6,16 @@ import 'widgets/ButtomTabs.dart';
 import 'widgets/DrawerItems.dart';
 
 //pages
-import 'pages/Home.dart';
-import 'pages/PageWrap.dart';
 import 'pages/TodoList.dart';
+import 'pages/Home.dart';
+import 'pages/Page2.dart';
 
 class Screen extends StatelessWidget {
   Screen({this.current});
   final int current;
   static List<Widget> _widgetOptions = <Widget>[
     Home(),
-    Center(
-        child: Text(
-      'Index 2: List',
-    )),
+    Page2(),
     Center(
         child: Text(
       'Index 3: Message',
@@ -50,9 +47,6 @@ class GlobalLayoutState extends State<GlobalLayout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text(widget.title),
-      // ),
       drawer: DrawerItems(),
       body: Screen(current: current),
       bottomNavigationBar: ButtomTabs(
@@ -94,7 +88,6 @@ class App extends StatelessWidget {
       ),
       routes: <String, WidgetBuilder>{
         '/list': (BuildContext context) => TodoList(),
-        '/setting': (BuildContext context) => PageWrap(title: 'Setting'),
       },
     );
   }
