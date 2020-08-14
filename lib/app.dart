@@ -50,18 +50,15 @@ class GlobalLayoutState extends State<GlobalLayout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
+      // appBar: AppBar(
+      //   title: Text(widget.title),
+      // ),
       drawer: DrawerItems(),
       body: Screen(current: current),
       bottomNavigationBar: ButtomTabs(
         current: current,
         onChangeTab: onChangeTab,
       ),
-      floatingActionButton:
-          FloatingActionButton(onPressed: null, child: const Icon(Icons.add)),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }
@@ -86,6 +83,14 @@ class App extends StatelessWidget {
         ),
         floatingActionButtonTheme:
             FloatingActionButtonThemeData(foregroundColor: Colors.white),
+        sliderTheme: SliderThemeData(
+          thumbColor: Colors.orange,
+          inactiveTrackColor: Colors.orange.shade100,
+          inactiveTickMarkColor: Colors.orange,
+          valueIndicatorColor: Colors.orange,
+          activeTickMarkColor: Colors.orange.shade100,
+          activeTrackColor: Colors.orange,
+        ),
       ),
       routes: <String, WidgetBuilder>{
         '/list': (BuildContext context) => TodoList(),

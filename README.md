@@ -10,3 +10,8 @@
 使用：sqlite
 
 ## BottomTabs
+
+### Home
+
+功能：改字的大小
+使用：Slider
