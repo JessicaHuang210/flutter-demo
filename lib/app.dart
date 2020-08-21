@@ -7,25 +7,10 @@ import 'widgets/DrawerItems.dart';
 
 //pages
 import 'pages/TodoList.dart';
-import 'pages/Home.dart';
-import 'pages/Page2.dart';
+import 'pages/SwitchBar.dart';
 
-class Screen extends StatelessWidget {
-  Screen({this.current});
-  final int current;
-  static List<Widget> _widgetOptions = <Widget>[
-    Home(),
-    Page2(),
-    Center(
-        child: Text(
-      'Index 3: Message',
-    )),
-  ];
-  @override
-  Widget build(BuildContext context) {
-    return _widgetOptions.elementAt(current);
-  }
-}
+//utils
+import 'utils/Theme.dart';
 
 class GlobalLayout extends StatefulWidget {
   GlobalLayout({this.title});
@@ -64,30 +49,10 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'flutter_demo',
       home: GlobalLayout(title: 'flutter_router_demo'),
-      theme: ThemeData(
-        primaryColor: Colors.orange,
-        primaryColorDark: Colors.orange,
-        accentColor: Colors.orange,
-        appBarTheme: AppBarTheme(
-          iconTheme: IconThemeData(color: Colors.white),
-          actionsIconTheme: IconThemeData(color: Colors.white),
-          textTheme: TextTheme(
-            headline6: TextStyle(fontSize: 20, color: Colors.white),
-          ),
-        ),
-        floatingActionButtonTheme:
-            FloatingActionButtonThemeData(foregroundColor: Colors.white),
-        sliderTheme: SliderThemeData(
-          thumbColor: Colors.orange,
-          inactiveTrackColor: Colors.orange.shade100,
-          inactiveTickMarkColor: Colors.orange,
-          valueIndicatorColor: Colors.orange,
-          activeTickMarkColor: Colors.orange.shade100,
-          activeTrackColor: Colors.orange,
-        ),
-      ),
+      theme: YellowThemeData.original,
       routes: <String, WidgetBuilder>{
         '/list': (BuildContext context) => TodoList(),
+        '/switch-bar': (BuildContext context) => SwitchBar(),
       },
     );
   }

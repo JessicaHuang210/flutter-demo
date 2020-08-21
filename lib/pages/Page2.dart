@@ -19,35 +19,60 @@ class Page2State extends State<Page2Stateful> {
         ),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
-          child: Row(
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          child: Wrap(
+            spacing: 10,
             children: <Widget>[
-              Card(
-                color: Colors.grey,
+              RaisedButton(
+                onPressed: () {
+                  // Navigator.of(context).pushNamed('/bank-app');
+                },
+                textColor: Colors.white,
+                padding: const EdgeInsets.all(0.0),
+                clipBehavior: Clip.antiAliasWithSaveLayer,
                 child: Container(
                   padding: EdgeInsets.all(20),
                   child: Text(
-                    'Music by Julie Gable.',
-                    style: TextStyle(color: Colors.white),
+                    'Bank App',
+                  ),
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomRight,
+                      colors: [Colors.pink, Colors.orange],
+                    ),
                   ),
                 ),
               ),
-              Card(
+              RaisedButton(
+                onPressed: () {},
+                textColor: Colors.white,
+                padding: const EdgeInsets.all(0.0),
+                clipBehavior: Clip.antiAliasWithSaveLayer,
                 color: Colors.grey,
                 child: Container(
                   padding: EdgeInsets.all(20),
                   child: Text(
                     ' Lyrics by Sidney Stein.',
-                    style: TextStyle(color: Colors.white),
                   ),
                 ),
               ),
-              Card(
-                color: Colors.grey,
+              RaisedButton(
+                onPressed: () {},
+                textColor: Colors.white,
+                padding: const EdgeInsets.all(0.0),
+                clipBehavior: Clip.antiAliasWithSaveLayer,
                 child: Container(
                   padding: EdgeInsets.all(20),
                   child: Text(
                     'dse pweo wppkld lefodkwl dlpwdpw',
-                    style: TextStyle(color: Colors.white),
+                  ),
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomRight,
+                      colors: [Colors.blue, Colors.green],
+                    ),
                   ),
                 ),
               ),

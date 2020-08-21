@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:badges/badges.dart';
 
 class HomeStateful extends StatefulWidget {
   @override
@@ -6,50 +7,106 @@ class HomeStateful extends StatefulWidget {
 }
 
 class HomeState extends State<HomeStateful> {
-  double sliderNum = 17;
-
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        AppBar(title: Text('Large Font Size')),
-        Expanded(
-          child: SingleChildScrollView(
-            padding: EdgeInsets.all(20),
+        Container(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Wrap(
+                spacing: 10,
+                direction: Axis.vertical,
+                // crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    'Hey Tommy,',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline6
+                        .apply(color: Colors.white),
+                  ),
+                  Text(
+                    'What will you do today?',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ],
+              ),
+              Wrap(
+                spacing: 10,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                children: <Widget>[
+                  Badge(
+                    badgeContent: null,
+                    position: BadgePosition.topRight(top: -5, right: -5),
+                    padding: EdgeInsets.all(3),
+                    child: Icon(
+                      Icons.favorite_border,
+                      color: Colors.white,
+                      size: 24.0,
+                    ),
+                  ),
+                  Container(
+                    width: 45,
+                    height: 45,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(width: 2.0, color: Colors.white),
+                      image: new DecorationImage(
+                        image: NetworkImage(
+                            'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+          padding: EdgeInsets.fromLTRB(30, 90, 30, 80),
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomRight,
+              colors: [Colors.blue, Colors.green],
+            ),
+          ),
+        ),
+        Transform(
+          transform: Matrix4.translationValues(0.0, -50.0, 0.0),
+          child: Card(
+            margin: EdgeInsets.symmetric(horizontal: 30),
             child: Column(
               children: <Widget>[
-                RichText(
-                  text: TextSpan(
-                    text: '目前的字體為 ',
-                    style: DefaultTextStyle.of(context)
-                        .style
-                        .apply(fontSizeFactor: 1.1),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: sliderNum.round().toString(),
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
+                Container(
+                  padding: EdgeInsets.all(20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(
+                        'My total balence',
                       ),
-                      TextSpan(text: ' px'),
+                      Text(
+                        '\$ 37,000.00',
+                        style: TextStyle(
+                          color: Colors.blueGrey,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
                     ],
                   ),
                 ),
-                Slider(
-                  value: sliderNum,
-                  min: 13,
-                  max: 50,
-                  divisions: 37,
-                  label: sliderNum.round().toString(),
-                  onChanged: (double value) {
-                    setState(() {
-                      sliderNum = value;
-                    });
-                  },
+                Divider(
+                  height: 1.0,
+                  indent: 0,
+                  endIndent: 0,
+                  color: Colors.grey.shade300,
                 ),
-                Text(
-                  'Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.',
-                  style: TextStyle(fontSize: sliderNum),
-                )
+                Container(
+                  padding: EdgeInsets.all(20),
+                  child: null,
+                ),
               ],
             ),
           ),
